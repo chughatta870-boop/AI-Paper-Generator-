@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Paper Generator - M Ijaz GHS 124/NB</title>
+<meta name="description" content="Generate school exam papers with MCQs, short and long questions plus auto answer keys. Create, save, edit, share and download exam papers offline.">
+<meta name="theme-color" content="#0d4747">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AI Paper Gen">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <img src="icon-96.png" alt="logo" class="brand-logo">
+    <div>
+      <h1>AI Paper Generator</h1>
+      <p class="tagline">M Ijaz &bull; GHS 124/NB</p>
+    </div>
+  </div>
+  <button id="menuBtn" class="icon-btn" aria-label="Menu">&#9776;</button>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button class="tab active" data-tab="create">Create Paper</button>
+  <button class="tab" data-tab="saved">Saved Papers</button>
+</nav>
+
+<main id="app">
+
+  <!-- CREATE TAB -->
+  <section id="tab-create" class="tab-panel active">
+    <form id="paperForm" class="card">
+      <h2 class="section-title">Paper Details</h2>
+
+      <div class="field">
+        <label for="examName">Exam Name</label>
+        <input type="text" id="examName" placeholder="e.g. Mid Term Examination 2026" required>
+      </div>
+
+      <div class="field">
+        <label for="schoolName">School Name</label>
+        <input type="text" id="schoolName" placeholder="e.g. GHS Chak No. 124/NB" required>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="examDate">Date</label>
+          <input type="date" id="examDate" required>
+        </div>
+        <div class="field">
+          <label for="subjectName">Subject</label>
+          <input type="text" id="subjectName" placeholder="e.g. Science" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="className">Class / Grade</label>
+          <input type="text" id="className" placeholder="e.g. Class 8">
+        </div>
+        <div class="field">
+          <label for="timeAllowed">Time Allowed</label>
+          <input type="text" id="timeAllowed" placeholder="e.g. 2 Hours 30 Minutes">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="totalMarks">Total Marks</label>
+          <input type="number" id="totalMarks" min="1" placeholder="e.g. 75" required>
+        </div>
+        <div class="field">
+          <label for="passingMarks">Passing Marks</label>
+          <input type="number" id="passingMarks" min="0" placeholder="e.g. 33" required>
+        </div>
+      </div>
+
+      <h2 class="section-title">Topics</h2>
+      <div class="field">
+        <label for="topics">Topics / Chapters (comma separated)</label>
+        <textarea id="topics" rows="3" placeholder="e.g. Photosynthesis, Human Digestive System, Force and Motion" required></textarea>
+      </div>
+
+      <h2 class="section-title">Question Counts</h2>
+      <div class="row three">
+        <div class="field">
+          <label for="mcqCount">MCQs</label>
+          <input type="number" id="mcqCount" min="0" value="10">
+        </div>
+        <div class="field">
+          <label for="shortCount">Short Qs</label>
+          <input type="number" id="shortCount" min="0" value="6">
+        </div>
+        <div class="field">
+          <label for="longCount">Long Qs</label>
+          <input type="number" id="longCount" min="0" value="3">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="language">Paper Language</label>
+        <select id="language">
+          <option value="English">English</option>
+          <option value="Urdu">Urdu</option>
+          <option value="Bilingual (English + Urdu)">Bilingual (English + Urdu)</option>
+        </select>
+      </div>
+
+      <button type="submit" id="generateBtn" class="btn btn-primary btn-block">
+        <span id="generateBtnText">Generate Paper</span>
+      </button>
+      <p class="hint">Requires internet connection for AI generation.</p>
+    </form>
+
+    <div id="loadingBox" class="loading-box hidden">
+      <div class="spinner"></div>
+      <p>Generating your paper with AI&hellip;</p>
+    </div>
+
+    <div id="resultBox" class="result-box hidden">
+      <div class="result-toolbar">
+        <button id="editBtn" class="btn btn-sm">Edit</button>
+        <button id="saveBtn" class="btn btn-sm">Save</button>
+        <button id="downloadBtn" class="btn btn-sm">Download</button>
+        <button id="shareBtn" class="btn btn-sm">Share</button>
+        <button id="toggleKeyBtn" class="btn btn-sm">Show Answer Key</button>
+        <button id="newBtn" class="btn btn-sm btn-ghost">New</button>
+      </div>
+      <div id="paperPreview" class="paper-preview"></div>
+    </div>
+  </section>
+
+  <!-- SAVED TAB -->
+  <section id="tab-saved" class="tab-panel">
+    <div id="savedList" class="saved-list">
+      <p class="empty-msg" id="emptyMsg">No saved papers yet. Create one from the "Create Paper" tab.</p>
+    </div>
+  </section>
+
+</main>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
